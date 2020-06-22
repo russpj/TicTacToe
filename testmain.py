@@ -144,6 +144,11 @@ def TestMove(verbose):
 			[' ', 'X', ' '],
 			[' ', ' ', ' ']
 		]
+	yMoveExpected = [
+			['X', ' ', 'O'],
+			[' ', 'X', ' '],
+			[' ', ' ', 'O']
+		]
 	
 	def TestAssert(board, team, move, expected, verbose):
 		newBoard = deepcopy(board)
@@ -165,6 +170,7 @@ def TestMove(verbose):
 
 	allTestsPassed = True
 	allTestsPassed = TestAssert(xMove, 'X', 5, xMoveExpected, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(yMove, 'Y', 8, yMoveExpected, verbose) and allTestsPassed
 	return allTestsPassed
 
 tests = (TestCondition(TestIsWinner, False),
