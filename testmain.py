@@ -111,7 +111,7 @@ def TestValidateMove(verbose):
 		return False
 
 	allTestsPassed = True
-	allTestsPassed = TestAssert(xMove, 'X', 5, MoveValidation.Valid, verbose)
+	allTestsPassed = TestAssert(xMove, 'O', 5, MoveValidation.WrongTeam, verbose)
 	return allTestsPassed
 
 

@@ -42,6 +42,7 @@ def IsWinner(board, team):
 
 class MoveValidation(Enum):
 	Valid = 1
+	WrongTeam = 2
 	NYI = 9
 
 def ValidateMove(board, team, move):
