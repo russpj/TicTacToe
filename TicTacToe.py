@@ -46,4 +46,24 @@ class MoveValidation(Enum):
 	NYI = 9
 
 def ValidateMove(board, team, move):
+	"""
+	Validates that the right team is moving, and that the move is into a valid, empty square
+	"""
+
+	def Count(board, team):
+		count = 0
+		for row in board:
+			for square in row:
+				if square == team:
+					count += 1
+		return count
+
+	numX = Count(board, 'X')
+	numO = Count(board, 'O')
+	if team == 'X' and numX != numO:
+		return MoveValidation.WrongTeam
+
+	if team == 'O' and numX != numO+1:
+		return MoveValidation.WrongTeam
+
 	return MoveValidation.NYI
