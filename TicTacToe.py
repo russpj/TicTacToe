@@ -44,6 +44,7 @@ class MoveValidation(Enum):
 	Valid = 1
 	WrongTeam = 2
 	OutOfRange = 3
+	Occupied = 4
 	NYI = 9
 
 def ValidateMove(board, team, move):
