@@ -83,6 +83,9 @@ def TestIsWinner(verbose):
 
 
 def TestValidateMove(verbose):
+	"""
+	Tests the ValidateMove function, with wrong turns, out of bounds moves
+	"""
 	xMove = [
 			['X', ' ', 'O'],
 			[' ', 'X', ' '],
@@ -112,6 +115,7 @@ def TestValidateMove(verbose):
 
 	allTestsPassed = True
 	allTestsPassed = TestAssert(xMove, 'O', 5, MoveValidation.WrongTeam, verbose)
+	allTestsPassed = TestAssert(xMove, 'X', 10, MoveValidation.OutOfRange, verbose)
 	return allTestsPassed
 
 

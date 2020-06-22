@@ -43,6 +43,7 @@ def IsWinner(board, team):
 class MoveValidation(Enum):
 	Valid = 1
 	WrongTeam = 2
+	OutOfRange = 3
 	NYI = 9
 
 def ValidateMove(board, team, move):
@@ -51,6 +52,9 @@ def ValidateMove(board, team, move):
 	"""
 
 	def Count(board, team):
+		"""
+		Counts the number of squares already picked by the team in the board
+		"""
 		count = 0
 		for row in board:
 			for square in row:
