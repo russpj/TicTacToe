@@ -12,6 +12,14 @@ from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import MoveValidation
 
+
+def StringFromBoard(board):
+	rows = []
+	for row in board:
+		rows.append('|'.join(row))
+	return '\n-----\n'.join(rows)
+
+
 class TestCondition:
 	"""
 	Simple struct to encapsulate a test that should be run
@@ -64,7 +72,7 @@ def TestIsWinner(verbose):
 		if verbose or result!=expected:
 			print()
 			print('TestIsWinner')
-			print(board)
+			print(StringFromBoard(board))
 			print('  testing with {}'.format(team))
 			print ('  result was {}'.format(result))
 
@@ -105,7 +113,7 @@ def TestValidateMove(verbose):
 		if verbose or result!=expected:
 			print()
 			print('TestValidateMove')
-			print(board)
+			print(StringFromBoard(board))
 			print('  testing with {} in {}'.format(team, move))
 			print ('  result was {}, expected {}'.format(result, expected))
 
@@ -159,9 +167,9 @@ def TestMove(verbose):
 		if verbose or not result:
 			print()
 			print('TestMove')
-			print(board)
+			print(StringFromBoard(board))
 			print('  testing with {} in {}'.format(team, move))
-			print ('  result was {}, expected {}'.format(board, expected))
+			print ('  result was \n{}, \nexpected \n{}'.format(StringFromBoard(board), StringFromBoard(expected)))
 
 		if not result:
 			print ('FAILED')
@@ -175,9 +183,9 @@ def TestMove(verbose):
 	allTestsPassed = TestAssert(yMove, 'O', 8, yMoveExpected, verbose) and allTestsPassed
 	return allTestsPassed
 
-tests = (TestCondition(TestIsWinner, False),
-				 TestCondition(TestValidateMove, False),
-				 TestCondition(TestMove, False)
+tests = (TestCondition(TestIsWinner, True),
+				 TestCondition(TestValidateMove, True),
+				 TestCondition(TestMove, True)
 				 )
 
 def Test():
