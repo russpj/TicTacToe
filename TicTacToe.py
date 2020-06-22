@@ -83,4 +83,7 @@ def ValidateMove(board, team, move):
 
 
 def Move(board, team, move):
+	row = move//3
+	col = move%3
+	board[row][col] = team
 	return

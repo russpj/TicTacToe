@@ -5,10 +5,12 @@ Some tests will assert only if they fail
 Other tests show how the algorithms are working
 """
 
+from copy import deepcopy
+
 from TicTacToe import IsWinner
 from TicTacToe import ValidateMove
+from TicTacToe import Move
 from TicTacToe import MoveValidation
-from copy import deepcopy
 
 class TestCondition:
 	"""
@@ -152,7 +154,7 @@ def TestMove(verbose):
 	
 	def TestAssert(board, team, move, expected, verbose):
 		newBoard = deepcopy(board)
-		ValidateMove(newBoard, team, move)
+		Move(newBoard, team, move)
 		result = (newBoard == expected)
 		if verbose or not result:
 			print()
@@ -170,12 +172,12 @@ def TestMove(verbose):
 
 	allTestsPassed = True
 	allTestsPassed = TestAssert(xMove, 'X', 5, xMoveExpected, verbose) and allTestsPassed
-	allTestsPassed = TestAssert(yMove, 'Y', 8, yMoveExpected, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(yMove, 'O', 8, yMoveExpected, verbose) and allTestsPassed
 	return allTestsPassed
 
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
-				 TestCondition(TestMove, True)
+				 TestCondition(TestMove, False)
 				 )
 
 def Test():
