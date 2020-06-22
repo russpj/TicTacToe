@@ -74,4 +74,9 @@ def ValidateMove(board, team, move):
 	if move < 0 or move >= 9:
 		return MoveValidation.OutOfRange
 
+	row = move//3
+	col = move%3
+	if board[row][col] != ' ':
+		return MoveValidation.Occupied
+
 	return MoveValidation.NYI
