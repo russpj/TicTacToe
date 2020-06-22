@@ -70,4 +70,7 @@ def ValidateMove(board, team, move):
 	if team == 'O' and numX != numO+1:
 		return MoveValidation.WrongTeam
 
+	if move < 0 or move >= 9:
+		return MoveValidation.OutOfRange
+
 	return MoveValidation.NYI
