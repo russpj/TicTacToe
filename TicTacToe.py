@@ -79,4 +79,4 @@ def ValidateMove(board, team, move):
 	if board[row][col] != ' ':
 		return MoveValidation.Occupied
 
-	return MoveValidation.NYI
+	return MoveValidation.Valid
