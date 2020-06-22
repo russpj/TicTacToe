@@ -80,3 +80,7 @@ def ValidateMove(board, team, move):
 		return MoveValidation.Occupied
 
 	return MoveValidation.Valid
+
+
+def Move(board, team, move):
+	return

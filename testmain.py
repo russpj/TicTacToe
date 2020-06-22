@@ -8,6 +8,7 @@ Other tests show how the algorithms are working
 from TicTacToe import IsWinner
 from TicTacToe import ValidateMove
 from TicTacToe import MoveValidation
+from copy import deepcopy
 
 class TestCondition:
 	"""
@@ -127,8 +128,48 @@ def TestValidateMove(verbose):
 	return allTestsPassed
 
 
+def TestMove(verbose):
+	xMove = [
+			['X', ' ', 'O'],
+			[' ', 'X', ' '],
+			[' ', ' ', 'O']
+		]
+	xMoveExpected = [
+			['X', ' ', 'O'],
+			[' ', 'X', 'X'],
+			[' ', ' ', 'O']
+		]
+	yMove = [
+			['X', ' ', 'O'],
+			[' ', 'X', ' '],
+			[' ', ' ', ' ']
+		]
+	
+	def TestAssert(board, team, move, expected, verbose):
+		newBoard = deepcopy(board)
+		ValidateMove(newBoard, team, move)
+		result = (newBoard == expected)
+		if verbose or not result:
+			print()
+			print('TestMove')
+			print(board)
+			print('  testing with {} in {}'.format(team, move))
+			print ('  result was {}, expected {}'.format(board, expected))
+
+		if not result:
+			print ('FAILED')
+			return False
+		else:
+			return True
+		return False
+
+	allTestsPassed = True
+	allTestsPassed = TestAssert(xMove, 'X', 5, xMoveExpected, verbose) and allTestsPassed
+	return allTestsPassed
+
 tests = (TestCondition(TestIsWinner, False),
-				 TestCondition(TestValidateMove, False)
+				 TestCondition(TestValidateMove, False),
+				 TestCondition(TestMove, True)
 				 )
 
 def Test():
