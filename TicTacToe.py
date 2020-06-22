@@ -17,16 +17,16 @@ def IsWinner(board, team):
 		for col in range(3):
 			if board[row][col] != team:
 				allTeam = False
-	if allTeam:
-		return True
+		if allTeam:
+			return True
 	
 	for col in range(3):
 		allTeam = True
 		for row in range(3):
 			if board[row][col] != team:
 				allTeam = False
-	if allTeam:
-		return True
+		if allTeam:
+			return True
 
 	allTeam = True
 	for index in range(3):
@@ -35,4 +35,4 @@ def IsWinner(board, team):
 	if allTeam:
 		return True
 
-	return board[0][2] == team and board[1][1] == team and board[2][0]
+	return board[0][2] == team and board[1][1] == team and board[2][0] == team
