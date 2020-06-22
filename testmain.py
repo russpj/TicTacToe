@@ -6,6 +6,8 @@ Other tests show how the algorithms are working
 """
 
 from TicTacToe import IsWinner
+from TicTacToe import ValidateMove
+from TicTacToe import MoveValidation
 
 class TestCondition:
 	"""
@@ -92,11 +94,24 @@ def TestValidateMove(verbose):
 			[' ', ' ', ' ']
 		]
 
-	def TestAssert(board, team, move, verbose):
+	def TestAssert(board, team, move, expected, verbose):
+		result = ValidateMove(board, team, move)
+		if verbose or result!=expected:
+			print()
+			print('TestValidateMove')
+			print(board)
+			print('  testing with {} in {}'.format(team, move))
+			print ('  result was {}, expected {}'.format(result, expected))
+
+		if result != expected:
+			print ('FAILED')
+			return False
+		else:
+			return True
 		return False
 
 	allTestsPassed = True
-
+	allTestsPassed = TestAssert(xMove, 'X', 5, MoveValidation.Valid, verbose)
 	return allTestsPassed
 
 

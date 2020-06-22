@@ -4,6 +4,8 @@ TicTacToe
 Contains the engines for a Tic-Tac-Toe board
 """
 
+from enum import Enum
+
 def IsWinner(board, team):
 	"""
 	Input
@@ -36,3 +38,11 @@ def IsWinner(board, team):
 		return True
 
 	return board[0][2] == team and board[1][1] == team and board[2][0] == team
+
+
+class MoveValidation(Enum):
+	Valid = 1
+	NYI = 9
+
+def ValidateMove(board, team, move):
+	return MoveValidation.NYI
