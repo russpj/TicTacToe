@@ -12,12 +12,7 @@ from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import MoveValidation
 
-
-def StringFromBoard(board):
-	rows = []
-	for row in board:
-		rows.append('|'.join(row))
-	return '\n-----\n'.join(rows)
+from game import StringFromBoard
 
 
 class TestCondition:
