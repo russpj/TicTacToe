@@ -40,6 +40,22 @@ def IsWinner(board, team):
 	return board[0][2] == team and board[1][1] == team and board[2][0] == team
 
 
+def Count(board, team):
+	"""
+	Counts the number of squares already picked by the team in the board
+	"""
+	count = 0
+	for row in board:
+		for square in row:
+			if square == team:
+				count += 1
+	return count
+
+
+def IsCatsGame(board):
+	return Count(board, 'X') == 5
+
+
 class MoveValidation(Enum):
 	Valid = 1
 	WrongTeam = 2
@@ -51,17 +67,6 @@ def ValidateMove(board, team, move):
 	"""
 	Validates that the right team is moving, and that the move is into a valid, empty square
 	"""
-
-	def Count(board, team):
-		"""
-		Counts the number of squares already picked by the team in the board
-		"""
-		count = 0
-		for row in board:
-			for square in row:
-				if square == team:
-					count += 1
-		return count
 
 	numX = Count(board, 'X')
 	numO = Count(board, 'O')

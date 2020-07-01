@@ -4,6 +4,7 @@ This handles the game play of Tic-Tac-Toe
 
 
 from TicTacToe import IsWinner
+from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import MoveValidation
@@ -43,9 +44,15 @@ def PlayTicTacToe(numPlayers):
 		move = GetNextMove(board, nextMover)
 		Move(board, nextMover, move)	
 		print(StringFromBoard(board))
+		
 		if IsWinner(board, nextMover):
 			print ('{} is the Winner!'.format(nextMover))
 			break
+		
+		if IsCatsGame(board):
+			print("No winner! Cat's game.")
+			break
+
 		if nextMover == 'X':
 			nextMover = 'O'
 		else:
