@@ -8,6 +8,7 @@ Other tests show how the algorithms are working
 from copy import deepcopy
 
 from TicTacToe import IsWinner
+from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import MoveValidation
@@ -178,9 +179,55 @@ def TestMove(verbose):
 	allTestsPassed = TestAssert(yMove, 'O', 8, yMoveExpected, verbose) and allTestsPassed
 	return allTestsPassed
 
-tests = (TestCondition(TestIsWinner, True),
-				 TestCondition(TestValidateMove, True),
-				 TestCondition(TestMove, True)
+
+def TestIsCatsGame(verbose):
+	notFull = (
+			('X', ' ', 'O'),
+			('O', 'X', 'X'),
+			(' ', ' ', 'O')
+		)
+	xWinner = [
+			['X', 'O', 'O'],
+			['X', 'O', 'X'],
+			['X', 'X', 'O'],
+		]
+	oWinner = [
+			['X', 'X', 'O'],
+			['O', 'O', 'X'],
+			['O', 'X', 'X'],
+		]
+	catsGame = [
+			['X', 'X', 'O'],
+			['O', 'O', 'X'],
+			['X', 'O', 'X'],
+		]
+
+	def TestAssert(board, expected, verbose):
+		catsGame = IsCatsGame(board)
+		passed = (catsGame == expected)
+		if verbose or not passed:
+			print()
+			print('TestIsCatsGame')
+			print(StringFromBoard(board))
+			print ('  result was \n{}, \nexpected \n{}'.format(catsGame, expected))
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	allTestsPassed = TestAssert(notFull, False, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(xWinner, False, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(oWinner, False, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(catsGame, True, verbose) and allTestsPassed
+
+
+tests = (TestCondition(TestIsWinner, False),
+				 TestCondition(TestValidateMove, False),
+				 TestCondition(TestMove, False),
+				 TestCondition(TestIsCatsGame, True)
 				 )
 
 def Test():
