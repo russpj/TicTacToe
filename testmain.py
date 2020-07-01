@@ -222,6 +222,7 @@ def TestIsCatsGame(verbose):
 	allTestsPassed = TestAssert(xWinner, False, verbose) and allTestsPassed
 	allTestsPassed = TestAssert(oWinner, False, verbose) and allTestsPassed
 	allTestsPassed = TestAssert(catsGame, True, verbose) and allTestsPassed
+	return allTestsPassed
 
 
 tests = (TestCondition(TestIsWinner, False),

@@ -53,7 +53,7 @@ def Count(board, team):
 
 
 def IsCatsGame(board):
-	return Count(board, 'X') == 5
+	return not IsWinner(board, 'X') and not IsWinner(board, 'O') and Count(board, 'X') == 5
 
 
 class MoveValidation(Enum):
