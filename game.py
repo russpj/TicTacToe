@@ -16,6 +16,14 @@ def StringFromBoard(board):
 	return '\n-----\n'.join(rows)
 
 
+def GetNextMove(board, mover):
+	while True:
+		move = int(input('Tell me your move, {}: '.format(mover)))
+		result = ValidateMove(board, mover, move)
+		if result == MoveValidation.Valid:
+			return move
+
+
 def PlayTicTacToe(numPlayers):
 	numberBoard = [
 			['0', '1', '2'],
@@ -32,11 +40,7 @@ def PlayTicTacToe(numPlayers):
 		]
 	nextMover = 'X'
 	while True:
-		while True:
-			move = int(input('Tell me your move, {}: '.format(nextMover)))
-			result = ValidateMove(board, nextMover, move)
-			if result == MoveValidation.Valid:
-				break
+		move = GetNextMove(board, nextMover)
 		Move(board, nextMover, move)	
 		print(StringFromBoard(board))
 		if IsWinner(board, nextMover):
