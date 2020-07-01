@@ -25,11 +25,11 @@ def GetNextMove(board, mover):
 
 
 def PlayTicTacToe(numPlayers):
-	numberBoard = [
-			['0', '1', '2'],
-			['3', '4', '5'],
-			['6', '7', '8']
-		]
+	numberBoard = (
+			('0', '1', '2'),
+			('3', '4', '5'),
+			('6', '7', '8')
+		)
 	print('Thank you. The board is numbered like this:')
 	print(StringFromBoard(numberBoard))
 	turn = 'X'
