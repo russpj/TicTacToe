@@ -11,6 +11,10 @@ from TicTacToe import MoveValidation
 
 
 def StringFromBoard(board):
+	"""
+	Prepares a string representation of the board
+	for pretty printing. It is a multi line string.
+	"""
 	rows = []
 	for row in board:
 		rows.append('|'.join(row))
@@ -18,6 +22,11 @@ def StringFromBoard(board):
 
 
 def GetNextMove(board, mover):
+	"""
+	Prompts the appropriate user for their next move.
+	Won't leave until a valid input is entered, or an excpetion
+	is thrown (if a non-numeric input is entered)
+	"""
 	while True:
 		move = int(input('Tell me your move, {}: '.format(mover)))
 		result = ValidateMove(board, mover, move)
@@ -26,6 +35,12 @@ def GetNextMove(board, mover):
 
 
 def PlayTicTacToe(numPlayers):
+	"""
+	Manages the input and output for a Tic Tac Toe game
+	numPlayers is currently assumed to be 2
+	Does check for valid moves, and will detect won games and 
+	cat's games
+	"""
 	numberBoard = (
 			('0', '1', '2'),
 			('3', '4', '5'),
@@ -59,6 +74,12 @@ def PlayTicTacToe(numPlayers):
 			nextMover = 'X'
 
 def Play():
+	"""
+	Gets the user started on a game. Note that the only game currently
+	available is TicTacToe.
+
+	ToDo: implement Global Thermonuclear War
+	"""
 	while True:
 		gameName = input('Would you like to play a game, Professor? ')
 		if gameName == 'TicTacToe':
@@ -71,4 +92,7 @@ def Play():
 	return
 
 if __name__ == '__main__':
+	"""
+	If this module is the main module, then Play a game.
+	"""
 	Play()
