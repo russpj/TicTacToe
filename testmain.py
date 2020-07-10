@@ -434,7 +434,7 @@ def TestCanonicalize(verbose):
 			print(StringFromBoard(board))
 			print ('  result was \n{}, \nIndex: {}, Flips: {}, Rotations: {}\n'.
 							format(StringFromBoard(newBoard), index, flips, rotations) + 
-									'  expected \n{}\nIndex: {}, Flips: {}, Rotations: {}'.
+						 '  expected \n{}\nIndex: {}, Flips: {}, Rotations: {}'.
 							format(StringFromBoard(expected[0]), expected[1], expected[2], expected[3]))
 
 		if not passed:
