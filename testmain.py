@@ -444,9 +444,7 @@ def TestCanonicalize(verbose):
 			return True
 
 	allTestsPassed = True
-	for testNumber in range(1):
-		test = tests[testNumber]
-		expected = expecteds[testNumber]
+	for test, expected in zip(tests, expecteds):
 		allTestsPassed = TestAssert(test, expected, verbose) and allTestsPassed
 
 	return allTestsPassed
