@@ -5,6 +5,7 @@ Contains the engines for a Tic-Tac-Toe board
 """
 
 from enum import Enum
+from copy import deepcopy
 
 def IsWinner(board, team):
 	"""
@@ -158,5 +159,26 @@ def EqualBoards(left, right):
 	return True
 
 
-def CanonicalizeBoard(board):
-	return (board, 0, 0, 0)
+def CanonicalizeBoard(boardParam):
+	"""
+	Finds the rotation and reversal of the board that yields the
+	highest index, and uses that as the standard version of the board
+
+	returns a tuple of (board, index, rotations, flips)
+	"""
+	indexMax = 0
+	flipsOnMax = 0
+	rotaionsOnMax = 0
+	board = boardParam
+	boardReturn = deepcopy(board)
+	for flips in range(2):
+		for rotations in range(4):
+			index = IndexBoard(board)
+			if index > indexMax:
+				indexMax = index
+				flipsOnMax = flips
+				rotationsOnMax = rotations
+				boardReturn = deepcopy(board)
+			board = RotateBoard(board)
+		board = FlipBoard(board)
+	return (boardReturn, indexMax, rotationsOnMax, flipsOnMax)

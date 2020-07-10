@@ -426,7 +426,7 @@ def TestCanonicalize(verbose):
 	)
 
 	def TestAssert(board, expected, verbose):
-		newBoard, index, flips, rotations = CanonicalizeBoard(board)
+		newBoard, index, rotations, flips = CanonicalizeBoard(board)
 		passed = EqualBoards(newBoard, expected[0]) and index == expected[1] and flips == expected[2] and rotations == expected[3]
 		if verbose or not passed:
 			print()
