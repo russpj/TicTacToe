@@ -12,6 +12,8 @@ from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import ScoreBoard
+from TicTacToe import RotateBoard
+from TicTacToe import EqualBoards
 from TicTacToe import MoveValidation
 
 from game import StringFromBoard
@@ -250,12 +252,12 @@ def TestScoreBoard(verbose):
 
 	def TestAssert(board, expected, verbose):
 		score = ScoreBoard(board)
-		passed = (catsGame == expected)
+		passed = (score == expected)
 		if verbose or not passed:
 			print()
 			print('TestIsCatsGame')
 			print(StringFromBoard(board))
-			print ('  result was \n{}, \nexpected \n{}'.format(score, expected))
+			print ('  result was {}, expected {}'.format(score, expected))
 
 		if not passed:
 			print ('FAILED')
@@ -271,12 +273,77 @@ def TestScoreBoard(verbose):
 	allTestsPassed = TestAssert(catsGame, 18626, verbose) and allTestsPassed
 	return allTestsPassed
 
+def TestRotate(verbose):
+	notFull = (
+			('X', ' ', 'O'),
+			('O', 'X', 'X'),
+			(' ', ' ', 'O')
+		)
+	xWinner = (
+			('X', 'O', 'O'),
+			('X', 'O', 'X'),
+			('X', 'X', 'O'),
+		)
+	oWinner = (
+			('X', 'X', 'O'),
+			('O', 'O', 'X'),
+			('O', 'X', 'X'),
+		)
+	catsGame = (
+			('X', 'X', 'O'),
+			('O', 'O', 'X'),
+			('X', 'O', 'X'),
+		)
+	rotatedNotFull = (
+			(' ','O','X'),
+			(' ','X',' '),
+			('O','X','O')
+		)
+	rotatedXWinner = (
+			('X','X','X'),
+			('X','O','O'),
+			('O','X','O')
+		)
+	rotatedOWinner = (
+			('O','O','X'),
+			('X','O','X'),
+			('X','X','O')
+		)
+	rotatedCatsGame = (
+			('X','O','X'),
+			('O','O','X'),
+			('X','X','O')
+		)
+
+	def TestAssert(board, expected, verbose):
+		newBoard = RotateBoard(board)
+		passed = EqualBoards(newBoard, expected)
+		if verbose or not passed:
+			print()
+			print('TestRotateBoard')
+			print(StringFromBoard(board))
+			print ('  result was \n{}, \nexpected \n{}'.format(
+					StringFromBoard(newBoard), StringFromBoard(expected)))
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	allTestsPassed = TestAssert(notFull, rotatedNotFull, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(xWinner, rotatedXWinner, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(oWinner, rotatedOWinner, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(catsGame, rotatedCatsGame, verbose) and allTestsPassed
+	return allTestsPassed
 
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
 				 TestCondition(TestIsCatsGame, False),
-				 TestCondition(TestScoreBoard, True)
+				 TestCondition(TestScoreBoard, False),
+				 TestCondition(TestRotate, True)
 				 )
 
 def Test():

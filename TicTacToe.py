@@ -88,10 +88,53 @@ def ValidateMove(board, team, move):
 
 
 def Move(board, team, move):
+	"""
+	Makes the move for the team on the board
+
+	Fills in the square with team's letter
+	"""
 	row = move//3
 	col = move%3
 	board[row][col] = team
 	return
 
 def ScoreBoard(board):
-	return 0
+	"""
+	Scores the board, using base 3 where blanks are 0, O's are 1, and X's are 2
+	"""
+	def Value(square):
+		return 2 if square=='X' else 1 if square=='O' else 0
+
+	result = 0
+	for row in board:
+		for square in row:
+			result = result*3 + Value(square)
+	return result
+
+def RotateBoard(board):
+	"""
+	Rotates a TicTacToe board clockwise
+
+	0|1|2          6|3|0
+	-----					 ----- 
+	3|4|5    ==>   7|4|1
+	-----          -----
+	6|7|8					 8|5|2
+	"""
+	newBoard = []
+	for row in range(3):
+		newLine = []
+		for col in range(3):
+			newLine.append(board[2-col][row])
+		newBoard.append(newLine)
+	return newBoard
+
+def EqualBoards(left, right):
+	"""
+	Determines if all of the squares in the two boards are equal
+	"""
+	for row in range(3):
+		for col in range(3):
+			if left[row][col] != right[row][col]:
+				return False
+	return True
