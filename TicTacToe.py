@@ -143,7 +143,7 @@ def FlipBoard(board):
 	for row in range(3):
 		newLine = []
 		for col in range(3):
-			newLine.append(board[2-col][row])
+			newLine.append(board[row][2-col])
 		newBoard.append(newLine)
 	return newBoard
 
