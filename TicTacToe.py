@@ -156,3 +156,7 @@ def EqualBoards(left, right):
 			if left[row][col] != right[row][col]:
 				return False
 	return True
+
+
+def CanonicalizeBoard(board):
+	return (board, 0, 0, 0)
