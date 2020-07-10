@@ -1,8 +1,13 @@
-M X 4
-M O 1
 M X 8
-M O 0
+R 2
+M O 4
 M X 2
+M O 1
+M X 7
 M O 5
-M X 6
-W X
+F 1
+M X 5
+R 3
+M O 2
+M X 8
+C

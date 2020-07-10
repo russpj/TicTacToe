@@ -7,6 +7,7 @@ from TicTacToe import IsWinner
 from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
+from TicTacToe import CanonicalizeBoard
 from TicTacToe import MoveValidation
 
 
@@ -61,6 +62,17 @@ def PlayTicTacToe(numPlayers):
 		Move(board, nextMover, move)
 		game.append('M {} {}'.format(nextMover, move))
 		print(StringFromBoard(board))
+
+		canonicalBoard, index, rotations, flips = CanonicalizeBoard(board)
+		if rotations > 0:
+			print('Rotate {} times'.format(rotations))
+			game.append('R {}'.format(rotations))
+		if flips > 0:
+			print ('Flip Horizontally')
+			game.append('F {}'.format(flips))
+		if rotations > 0 or flips > 0:
+			board = canonicalBoard
+			print(StringFromBoard(board))
 		
 		if IsWinner(board, nextMover):
 			print ('{} is the Winner!'.format(nextMover))
