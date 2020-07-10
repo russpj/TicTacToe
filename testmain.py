@@ -414,27 +414,52 @@ def TestCanonicalize(verbose):
 				(' ', ' ', 'O'),
 				(' ', ' ', 'X')
 			),
+			(
+				(' ', ' ', ' '),
+				(' ', 'X', 'O'),
+				(' ', ' ', ' ')
+			),
+			(
+				(' ', 'O', 'X'),
+				(' ', 'X', ' '),
+				(' ', ' ', ' ')
+			),
 		)
 	expecteds = (
-		(
 			(
-				('X', 'O', ' '),
-				(' ', ' ', ' '),
-				(' ', ' ', ' ')
-			), 15309, 1, 1
-		),
-	)
+				(
+					('X', 'O', ' '),
+					(' ', ' ', ' '),
+					(' ', ' ', ' ')
+				), 15309, 1, 1
+			),
+			(
+				(
+					(' ', 'O', ' '),
+					(' ', 'X', ' '),
+					(' ', ' ', ' ')
+				), 2349, 3, 0
+			),
+			(
+				(
+					('X', 'O', ' '),
+					(' ', 'X', ' '),
+					(' ', ' ', ' ')
+				), 15471, 0, 1
+			),
+		)
 
 	def TestAssert(board, expected, verbose):
 		newBoard, index, rotations, flips = CanonicalizeBoard(board)
-		passed = EqualBoards(newBoard, expected[0]) and index == expected[1] and flips == expected[2] and rotations == expected[3]
+		passed = EqualBoards(newBoard, expected[0]) 
+		passed = passed and index == expected[1] and rotations == expected[2] and flips == expected[3] 
 		if verbose or not passed:
 			print()
 			print('TestCanonicalizeBoard')
 			print(StringFromBoard(board))
-			print ('  result was \n{}, \nIndex: {}, Flips: {}, Rotations: {}\n'.
-							format(StringFromBoard(newBoard), index, flips, rotations) + 
-						 '  expected \n{}\nIndex: {}, Flips: {}, Rotations: {}'.
+			print ('  result was \n{}, \nIndex: {}, Rotations: {}, Flips: {}\n'.
+							format(StringFromBoard(newBoard), index, rotations, flips) + 
+						 '  expected \n{}\nIndex: {}, Rotations: {}, Flips: {}'.
 							format(StringFromBoard(expected[0]), expected[1], expected[2], expected[3]))
 
 		if not passed:
