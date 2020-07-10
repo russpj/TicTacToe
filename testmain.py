@@ -13,6 +13,7 @@ from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import ScoreBoard
 from TicTacToe import RotateBoard
+from TicTacToe import FlipBoard
 from TicTacToe import EqualBoards
 from TicTacToe import MoveValidation
 
@@ -338,12 +339,80 @@ def TestRotate(verbose):
 	allTestsPassed = TestAssert(catsGame, rotatedCatsGame, verbose) and allTestsPassed
 	return allTestsPassed
 
+
+def TestFlip(verbose):
+	notFull = (
+			('X', ' ', 'O'),
+			('O', 'X', 'X'),
+			(' ', ' ', 'O')
+		)
+	xWinner = (
+			('X', 'O', 'O'),
+			('X', 'O', 'X'),
+			('X', 'X', 'O'),
+		)
+	oWinner = (
+			('X', 'X', 'O'),
+			('O', 'O', 'X'),
+			('O', 'X', 'X'),
+		)
+	catsGame = (
+			('X', 'X', 'O'),
+			('O', 'O', 'X'),
+			('X', 'O', 'X'),
+		)
+	flippedNotFull = (
+			('O',' ','X'),
+			('X','X','O'),
+			('O',' ',' ')
+		)
+	flippedXWinner = (
+			('O','O','X'),
+			('X','O','X'),
+			('O','X','X')
+		)
+	flippedOWinner = (
+			('O','X','X'),
+			('X','O','O'),
+			('X','X','O')
+		)
+	flippedCatsGame = (
+			('O','X','X'),
+			('X','O','O'),
+			('X','O','X')
+		)
+
+	def TestAssert(board, expected, verbose):
+		newBoard = FlipBoard(board)
+		passed = EqualBoards(newBoard, expected)
+		if verbose or not passed:
+			print()
+			print('TestRotateBoard')
+			print(StringFromBoard(board))
+			print ('  result was \n{}, \nexpected \n{}'.format(
+					StringFromBoard(newBoard), StringFromBoard(expected)))
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	allTestsPassed = TestAssert(notFull, flippedNotFull, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(xWinner, flippedXWinner, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(oWinner, flippedOWinner, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(catsGame, flippedCatsGame, verbose) and allTestsPassed
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
 				 TestCondition(TestIsCatsGame, False),
 				 TestCondition(TestScoreBoard, False),
-				 TestCondition(TestRotate, True)
+				 TestCondition(TestRotate, False),
+				 TestCondition(TestFlip, True)
 				 )
 
 def Test():

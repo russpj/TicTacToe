@@ -129,6 +129,24 @@ def RotateBoard(board):
 		newBoard.append(newLine)
 	return newBoard
 
+def FlipBoard(board):
+	"""
+	Flips a TicTacToe board horizontally
+
+	0|1|2          2|1|0
+	-----					 ----- 
+	3|4|5    ==>   5|4|3
+	-----          -----
+	6|7|8					 8|7|6
+	"""
+	newBoard = []
+	for row in range(3):
+		newLine = []
+		for col in range(3):
+			newLine.append(board[2-col][row])
+		newBoard.append(newLine)
+	return newBoard
+
 def EqualBoards(left, right):
 	"""
 	Determines if all of the squares in the two boards are equal
