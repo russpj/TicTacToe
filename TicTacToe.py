@@ -98,9 +98,9 @@ def Move(board, team, move):
 	board[row][col] = team
 	return
 
-def ScoreBoard(board):
+def IndexBoard(board):
 	"""
-	Scores the board, using base 3 where blanks are 0, O's are 1, and X's are 2
+	Assigns a unique index to the board, using base 3 where blanks are 0, O's are 1, and X's are 2
 	"""
 	def Value(square):
 		return 2 if square=='X' else 1 if square=='O' else 0

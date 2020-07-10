@@ -11,7 +11,7 @@ from TicTacToe import IsWinner
 from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
-from TicTacToe import ScoreBoard
+from TicTacToe import IndexBoard
 from TicTacToe import RotateBoard
 from TicTacToe import FlipBoard
 from TicTacToe import EqualBoards
@@ -229,7 +229,7 @@ def TestIsCatsGame(verbose):
 	return allTestsPassed
 
 
-def TestScoreBoard(verbose):
+def TestIndexBoard(verbose):
 	notFull = (
 			('X', ' ', 'O'),
 			('O', 'X', 'X'),
@@ -252,7 +252,7 @@ def TestScoreBoard(verbose):
 		]
 
 	def TestAssert(board, expected, verbose):
-		score = ScoreBoard(board)
+		score = IndexBoard(board)
 		passed = (score == expected)
 		if verbose or not passed:
 			print()
@@ -410,7 +410,7 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
 				 TestCondition(TestIsCatsGame, False),
-				 TestCondition(TestScoreBoard, False),
+				 TestCondition(TestIndexBoard, False),
 				 TestCondition(TestRotate, False),
 				 TestCondition(TestFlip, True)
 				 )
