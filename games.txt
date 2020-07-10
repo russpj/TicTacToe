@@ -1,0 +1,8 @@
+M X 4
+M O 1
+M X 8
+M O 0
+M X 2
+M O 5
+M X 6
+W X

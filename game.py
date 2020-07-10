@@ -55,23 +55,41 @@ def PlayTicTacToe(numPlayers):
 			[' ', ' ', ' ']
 		]
 	nextMover = 'X'
+	game = []
 	while True:
 		move = GetNextMove(board, nextMover)
-		Move(board, nextMover, move)	
+		Move(board, nextMover, move)
+		game.append('M {} {}'.format(nextMover, move))
 		print(StringFromBoard(board))
 		
 		if IsWinner(board, nextMover):
 			print ('{} is the Winner!'.format(nextMover))
+			game.append('W {}'.format(nextMover))
 			break
 		
 		if IsCatsGame(board):
 			print("No winner! Cat's game.")
+			game.append('C')
 			break
 
 		if nextMover == 'X':
 			nextMover = 'O'
 		else:
 			nextMover = 'X'
+	return game
+
+def SaveListInFile(games):
+	while True:
+		fileName = input('What file should we write to, Professor? ')
+		try:
+			with open(fileName, 'a') as file:
+				for game in games:
+					for move in game:
+						file.write(move + '\n')
+			break
+		except OSError as error:
+			print('{}, try again.'.format(error))
+	return
 
 def Play():
 	"""
@@ -80,10 +98,13 @@ def Play():
 
 	ToDo: implement Global Thermonuclear War
 	"""
+	ticTacToeGames = []
 	while True:
 		gameName = input('Would you like to play a game, Professor? ')
 		if gameName == 'TicTacToe':
-			PlayTicTacToe(2)
+			ticTacToeGames.append(PlayTicTacToe(2))
+		elif gameName == 'Save':
+			SaveListInFile(ticTacToeGames)
 		elif gameName == "No":
 			print ('Good-Bye, Professor')
 			break
