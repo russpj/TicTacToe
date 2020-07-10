@@ -92,3 +92,6 @@ def Move(board, team, move):
 	col = move%3
 	board[row][col] = team
 	return
+
+def ScoreBoard(board):
+	return 0

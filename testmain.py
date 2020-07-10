@@ -11,6 +11,7 @@ from TicTacToe import IsWinner
 from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
+from TicTacToe import ScoreBoard
 from TicTacToe import MoveValidation
 
 from game import StringFromBoard
@@ -225,10 +226,57 @@ def TestIsCatsGame(verbose):
 	return allTestsPassed
 
 
+def TestScoreBoard(verbose):
+	notFull = (
+			('X', ' ', 'O'),
+			('O', 'X', 'X'),
+			(' ', ' ', 'O')
+		)
+	xWinner = [
+			['X', 'O', 'O'],
+			['X', 'O', 'X'],
+			['X', 'X', 'O'],
+		]
+	oWinner = [
+			['X', 'X', 'O'],
+			['O', 'O', 'X'],
+			['O', 'X', 'X'],
+		]
+	catsGame = [
+			['X', 'X', 'O'],
+			['O', 'O', 'X'],
+			['X', 'O', 'X'],
+		]
+
+	def TestAssert(board, expected, verbose):
+		score = ScoreBoard(board)
+		passed = (catsGame == expected)
+		if verbose or not passed:
+			print()
+			print('TestIsCatsGame')
+			print(StringFromBoard(board))
+			print ('  result was \n{}, \nexpected \n{}'.format(score, expected))
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+		return False
+
+	allTestsPassed = True
+	allTestsPassed = TestAssert(notFull, 14311, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(xWinner, 16684, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(oWinner, 18620, verbose) and allTestsPassed
+	allTestsPassed = TestAssert(catsGame, 18626, verbose) and allTestsPassed
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
-				 TestCondition(TestIsCatsGame, True)
+				 TestCondition(TestIsCatsGame, False),
+				 TestCondition(TestScoreBoard, True)
 				 )
 
 def Test():
