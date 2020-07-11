@@ -1,13 +1,23 @@
+I 0
+M X 3
+R 1
+I 4374
+M O 8
+R 1
+F 1
+I 6615
+M X 3
+R 3
+F 1
+I 10941
+M O 4
+I 11022
 M X 8
 R 2
-M O 4
-M X 2
-M O 1
-M X 7
-M O 5
-F 1
-M X 5
-R 3
+I 17584
 M O 2
-M X 8
-C
+I 18313
+M X 6
+I 18331
+M O 5
+W O

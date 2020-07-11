@@ -7,6 +7,7 @@ from TicTacToe import IsWinner
 from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
+from TicTacToe import IndexBoard
 from TicTacToe import CanonicalizeBoard
 from TicTacToe import MoveValidation
 
@@ -58,6 +59,7 @@ def PlayTicTacToe(numPlayers):
 	nextMover = 'X'
 	game = []
 	while True:
+		game.append('I {}'.format(IndexBoard(board)))
 		move = GetNextMove(board, nextMover)
 		Move(board, nextMover, move)
 		game.append('M {} {}'.format(nextMover, move))
