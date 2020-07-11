@@ -93,6 +93,17 @@ def PlayTicTacToe(numPlayers):
 	return game
 
 def SaveListInFile(games):
+	"""
+	Saves the given list
+
+	For TicTacToe, we expect these lines in the list
+	I {number}	The index number for the board at the beginning of the move
+	M {team} {square}
+	R {rotations}	optional number of rotations to canonicalize the board
+	F {flips} optional number of horizontal flips to canonicalize the board
+	W {team} if the games results in a win for team
+	C if the game results in a cat's game
+	"""
 	while True:
 		fileName = input('What file should we write to, Professor? ')
 		try:
