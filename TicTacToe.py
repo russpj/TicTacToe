@@ -182,3 +182,14 @@ def CanonicalizeBoard(boardParam):
 			board = RotateBoard(board)
 		board = FlipBoard(board)
 	return (boardReturn, indexMax, rotationsOnMax, flipsOnMax)
+
+
+def BoardFromIndex(index):
+	"""
+	Creates a board from its unique index
+	"""
+	return (
+			(' ', ' ', ' '),
+			(' ', ' ', ' '),
+			(' ', ' ', ' '),
+		)

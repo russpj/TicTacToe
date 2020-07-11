@@ -16,6 +16,7 @@ from TicTacToe import RotateBoard
 from TicTacToe import FlipBoard
 from TicTacToe import EqualBoards
 from TicTacToe import CanonicalizeBoard
+from TicTacToe import BoardFromIndex
 from TicTacToe import MoveValidation
 
 from game import StringFromBoard
@@ -475,6 +476,51 @@ def TestCanonicalize(verbose):
 	return allTestsPassed
 
 
+def TestBoardFromIndex(verbose):
+	tests = (
+			(
+				(' ', ' ', ' '),
+				(' ', ' ', 'O'),
+				(' ', ' ', 'X')
+			),
+			(
+				(' ', ' ', ' '),
+				(' ', 'X', 'O'),
+				(' ', ' ', ' ')
+			),
+			(
+				(' ', 'O', 'X'),
+				(' ', 'X', ' '),
+				(' ', ' ', ' ')
+			),
+		)
+
+	def TestAssert(board, verbose):
+		index = IndexBoard(board)
+		newBoard = BoardFromIndex(index)
+		passed = EqualBoards(board, newBoard) 
+		if verbose or not passed:
+			print()
+			print('TestBoardFromIndex')
+			print(StringFromBoard(board))
+			print ('  result was \n{}\n'.
+							format(StringFromBoard(newBoard)) + 
+						 '  expected \n{}\n'.
+							format(StringFromBoard(board)))
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	for test in tests:
+		allTestsPassed = TestAssert(test, verbose) and allTestsPassed
+
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
@@ -482,7 +528,8 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestIndexBoard, False),
 				 TestCondition(TestRotate, False),
 				 TestCondition(TestFlip, False),
-				 TestCondition(TestCanonicalize, True)
+				 TestCondition(TestCanonicalize, False),
+				 TestCondition(TestBoardFromIndex, True)
 				 )
 
 def Test():
