@@ -188,8 +188,20 @@ def BoardFromIndex(index):
 	"""
 	Creates a board from its unique index
 	"""
-	return (
-			(' ', ' ', ' '),
-			(' ', ' ', ' '),
-			(' ', ' ', ' '),
-		)
+	charList = []
+	while index > 0:
+		nextDigit = index % 3
+		nextChar = ' ' if nextDigit == 0 else 'O' if nextDigit == 1 else 'X'
+		charList.append(nextChar)
+		index = index // 3
+
+	while len(charList) < 9:
+		charList.append(' ')
+
+	charListDescending = charList[::-1]
+
+	board = []
+	for row in range(3):
+		board.append(charListDescending[row*3:(row+1)*3])
+
+	return board
