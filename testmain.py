@@ -20,6 +20,7 @@ from TicTacToe import BoardFromIndex
 from TicTacToe import MoveValidation
 
 from matchbox import DefaultMatchbox
+from matchbox import PickSquareAtRandom
 
 from game import StringFromBoard
 
@@ -573,6 +574,35 @@ def TestDefaultMatchbox(verbose):
 	return allTestsPassed
 
 
+def TestPickSquareAtRandom(verbose):
+	tests = (
+			[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0],
+			[1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0],
+			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+		)
+
+	def TestAssert(matchbox, repetitions, verbose):
+		passedAll = True
+		for _ in range(repetitions):
+			square = PickSquareAtRandom(matchbox)
+			passed = matchbox[square] == 1.0
+			if verbose or not passed:
+				print('Matchbox, Square, Value = ({} {}, {})'.format(matchbox, square, matchbox[square]))
+			passedAll = passedAll and passed
+
+		if not passedAll:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	for test in tests:
+		allTestsPassed = TestAssert(test, 10, verbose) and allTestsPassed
+
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
@@ -582,7 +612,8 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestFlip, False),
 				 TestCondition(TestCanonicalize, False),
 				 TestCondition(TestBoardFromIndex, False),
-				 TestCondition(TestDefaultMatchbox, True)
+				 TestCondition(TestDefaultMatchbox, False),
+				 TestCondition(TestPickSquareAtRandom, True)
 				 )
 
 def Test():

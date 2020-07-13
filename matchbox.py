@@ -34,5 +34,5 @@ def PickSquareAtRandom(matchbox):
 	"""
 	squares = range(9)
 	square = choices(squares, weights=matchbox)
-	return square
+	return square[0]
 
