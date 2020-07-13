@@ -11,6 +11,8 @@ from TicTacToe import IndexBoard
 from TicTacToe import CanonicalizeBoard
 from TicTacToe import MoveValidation
 
+from matchbox import GetComputerMove
+
 
 def StringFromBoard(board):
 	"""
@@ -74,7 +76,12 @@ def PlayTicTacToe(numPlayers):
 	while True:
 		index = IndexBoard(board)
 		game.append('I {}'.format(index))
-		move = GetNextMove(board, index, teams, nextMover)
+		nextPlayer = teams[nextMover]
+		if nextPlayer == 'H':
+			move = GetNextMove(board, index, teams, nextMover)
+		else:
+			move = GetComputerMove(board, index, nextMover)
+			print('The Computer has chosen {}.'.format(move))
 		Move(board, nextMover, move)
 		game.append('M {} {}'.format(nextMover, move))
 		print(StringFromBoard(board))
@@ -141,7 +148,7 @@ def Play():
 	while True:
 		gameName = input('Would you like to play a game, Professor? ')
 		if gameName == 'TicTacToe':
-			numPlayers = input('How many human players, Professor? ')
+			numPlayers = int(input('How many human players, Professor? '))
 			ticTacToeGames.append(PlayTicTacToe(numPlayers))
 		elif gameName == 'Save':
 			SaveListInFile(ticTacToeGames)
