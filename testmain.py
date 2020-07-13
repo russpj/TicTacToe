@@ -20,6 +20,7 @@ from TicTacToe import CanonicalizeBoard
 from TicTacToe import BoardFromIndex
 from TicTacToe import MoveValidation
 
+from matchbox import matchboxes
 from matchbox import DefaultMatchbox
 from matchbox import PickSquareAtRandom
 from matchbox import GetComputerMove
@@ -628,13 +629,17 @@ def TestGetComputerMove(verbose):
 		passedAll = True
 		for _ in range(repetitions):
 			square = GetComputerMove(board, index, mover)
+			matchbox = matchboxes[index]
 			row = square // 3
 			col = square % 3
-			passed = board[row][col] == ' '
+			passed = board[row][col] == ' ' and matchbox[square] >= 1.0
 			if verbose or not passed:
 				print()
 				print(StringFromBoard(board))
-				print('Row: {}, Col {}, Actual: {}'.format(row, col, board[row][col]))
+				print('Row: {}, Col {}, Actual: |{}|, Probability: {}'.
+					format(row, col, board[row][col], matchbox[square]))
+				matchbox[square] += 0.1
+				matchboxes[index] = matchbox
 			passedAll = passedAll and passed
 
 		if not passedAll:

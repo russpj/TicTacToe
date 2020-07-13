@@ -40,7 +40,14 @@ def PickSquareAtRandom(matchbox):
 def GetComputerMove(board, index, mover):
 	"""
 	Uses the matchbox to get a decent random move
+
+	First looks up the index in matchboxes. If it is there, 
+	returns the value. Otherwise it returns a new, default matchbox.
 	"""
-	matchbox = DefaultMatchbox(index)
+	if index in matchboxes:
+		matchbox = matchboxes[index]
+	else:
+		matchbox = DefaultMatchbox(index)
+		matchboxes[index] = matchbox
 	return PickSquareAtRandom(matchbox)
 
