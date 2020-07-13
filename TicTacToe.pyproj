@@ -25,6 +25,7 @@
     <Compile Include="game.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="matchbox.py" />
     <Compile Include="testmain.py">
       <SubType>Code</SubType>
     </Compile>
