@@ -11,6 +11,7 @@ from TicTacToe import IsWinner
 from TicTacToe import IsCatsGame
 from TicTacToe import ValidateMove
 from TicTacToe import Move
+from TicTacToe import Count
 from TicTacToe import IndexBoard
 from TicTacToe import RotateBoard
 from TicTacToe import FlipBoard
@@ -21,6 +22,7 @@ from TicTacToe import MoveValidation
 
 from matchbox import DefaultMatchbox
 from matchbox import PickSquareAtRandom
+from matchbox import GetComputerMove
 
 from game import StringFromBoard
 
@@ -603,6 +605,52 @@ def TestPickSquareAtRandom(verbose):
 	return allTestsPassed
 
 
+def TestGetComputerMove(verbose):
+	tests = (
+			(
+				(' ', ' ', ' '),
+				(' ', ' ', 'O'),
+				(' ', ' ', 'X')
+			),
+			(
+				(' ', ' ', ' '),
+				(' ', 'X', 'O'),
+				(' ', ' ', ' ')
+			),
+			(
+				(' ', 'O', 'X'),
+				(' ', 'X', ' '),
+				(' ', ' ', ' ')
+			),
+		)
+
+	def TestAssert(board, index, mover, repetitions, verbose):
+		passedAll = True
+		for _ in range(repetitions):
+			square = GetComputerMove(board, index, mover)
+			row = square // 3
+			col = square % 3
+			passed = board[row][col] == ' '
+			if verbose or not passed:
+				print()
+				print(StringFromBoard(board))
+				print('Row: {}, Col {}, Actual: {}'.format(row, col, board[row][col]))
+			passedAll = passedAll and passed
+
+		if not passedAll:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	for test in tests:
+		mover = 'X' if Count(test, 'X') == Count(test, 'O') else 'O'
+		allTestsPassed = TestAssert(test, IndexBoard(test), mover, 10, verbose) and allTestsPassed
+
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
@@ -613,7 +661,8 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestCanonicalize, False),
 				 TestCondition(TestBoardFromIndex, False),
 				 TestCondition(TestDefaultMatchbox, False),
-				 TestCondition(TestPickSquareAtRandom, True)
+				 TestCondition(TestPickSquareAtRandom, False),
+				 TestCondition(TestGetComputerMove, True)
 				 )
 
 def Test():

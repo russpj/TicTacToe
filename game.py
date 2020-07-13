@@ -23,26 +23,39 @@ def StringFromBoard(board):
 	return '\n-----\n'.join(rows)
 
 
-def GetNextMove(board, mover):
+def GetNextMove(board, index, teams, mover):
 	"""
 	Prompts the appropriate user for their next move.
 	Won't leave until a valid input is entered, or an excpetion
 	is thrown (if a non-numeric input is entered)
 	"""
-	while True:
-		move = int(input('Tell me your move, {}: '.format(mover)))
-		result = ValidateMove(board, mover, move)
-		if result == MoveValidation.Valid:
-			return move
+	if teams[mover] == 'H':
+		while True:
+			move = int(input('Tell me your move, {}: '.format(mover)))
+			result = ValidateMove(board, mover, move)
+			if result == MoveValidation.Valid:
+				return move
+	else:
+		return GetComputerMove(board, index, mover)
 
 
 def PlayTicTacToe(numPlayers):
 	"""
 	Manages the input and output for a Tic Tac Toe game
-	numPlayers is currently assumed to be 2
 	Does check for valid moves, and will detect won games and 
 	cat's games
 	"""
+	teams = {} # maps the teams onto players or computer
+	if numPlayers == 0:
+		teams['X'] = 'C'
+		teams['O'] = 'C'
+	elif numPlayers == 1:
+		teams['X'] = 'H'
+		teams['O'] = 'C'
+	else:
+		teams['X'] = 'H'
+		teams['O'] = 'H'
+
 	numberBoard = (
 			('0', '1', '2'),
 			('3', '4', '5'),
@@ -59,8 +72,9 @@ def PlayTicTacToe(numPlayers):
 	nextMover = 'X'
 	game = []
 	while True:
-		game.append('I {}'.format(IndexBoard(board)))
-		move = GetNextMove(board, nextMover)
+		index = IndexBoard(board)
+		game.append('I {}'.format(index))
+		move = GetNextMove(board, index, teams, nextMover)
 		Move(board, nextMover, move)
 		game.append('M {} {}'.format(nextMover, move))
 		print(StringFromBoard(board))
@@ -127,7 +141,8 @@ def Play():
 	while True:
 		gameName = input('Would you like to play a game, Professor? ')
 		if gameName == 'TicTacToe':
-			ticTacToeGames.append(PlayTicTacToe(2))
+			numPlayers = input('How many human players, Professor? ')
+			ticTacToeGames.append(PlayTicTacToe(numPlayers))
 		elif gameName == 'Save':
 			SaveListInFile(ticTacToeGames)
 		elif gameName == "No":

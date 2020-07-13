@@ -36,3 +36,11 @@ def PickSquareAtRandom(matchbox):
 	square = choices(squares, weights=matchbox)
 	return square[0]
 
+
+def GetComputerMove(board, index, mover):
+	"""
+	Uses the matchbox to get a decent random move
+	"""
+	matchbox = DefaultMatchbox(index)
+	return PickSquareAtRandom(matchbox)
+
