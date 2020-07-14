@@ -26,6 +26,7 @@ from matchbox import PickSquareAtRandom
 from matchbox import GetComputerMove
 
 from game import StringFromBoard
+from game import StringFromMatchbox
 
 
 class TestCondition:
@@ -546,9 +547,9 @@ def TestDefaultMatchbox(verbose):
 			),
 		)
 	expecteds = (
-			[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0],
-			[1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0],
-			[1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0],
+			[5, 5, 5, 5, 5, 0, 5, 5, 0],
+			[5, 5, 5, 5, 0, 0, 5, 5, 5],
+			[5, 0, 0, 5, 0, 5, 5, 5, 5],
 		)
 
 	def TestAssert(board, expected, verbose):
@@ -557,7 +558,7 @@ def TestDefaultMatchbox(verbose):
 		passed = matchbox == expected 
 		if verbose or not passed:
 			print()
-			print('TestBoardFromIndex')
+			print('TestDefaultMatchbox')
 			print(StringFromBoard(board))
 			print ('  result was \n{}\n'.
 							format((matchbox)) + 
@@ -579,16 +580,16 @@ def TestDefaultMatchbox(verbose):
 
 def TestPickSquareAtRandom(verbose):
 	tests = (
-			[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0],
-			[1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0],
-			[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+			[5, 5, 5, 5, 5, 0, 5, 5, 0],
+			[5, 5, 5, 5, 0, 0, 5, 5, 5],
+			[5, 0, 0, 5, 0, 5, 5, 5, 5],
 		)
 
 	def TestAssert(matchbox, repetitions, verbose):
 		passedAll = True
 		for _ in range(repetitions):
 			square = PickSquareAtRandom(matchbox)
-			passed = matchbox[square] == 1.0
+			passed = matchbox[square] == 5
 			if verbose or not passed:
 				print('Matchbox, Square, Value = ({} {}, {})'.format(matchbox, square, matchbox[square]))
 			passedAll = passedAll and passed
@@ -641,6 +642,7 @@ def TestGetComputerMove(verbose):
 				matchbox[square] += 0.1
 				matchboxes[index] = matchbox
 			passedAll = passedAll and passed
+			print(StringFromMatchbox(index))
 
 		if not passedAll:
 			print ('FAILED')

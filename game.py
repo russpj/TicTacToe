@@ -9,8 +9,10 @@ from TicTacToe import ValidateMove
 from TicTacToe import Move
 from TicTacToe import IndexBoard
 from TicTacToe import CanonicalizeBoard
+from TicTacToe import BoardFromIndex
 from TicTacToe import MoveValidation
 
+from matchbox import matchboxes
 from matchbox import GetComputerMove
 
 
@@ -23,6 +25,27 @@ def StringFromBoard(board):
 	for row in board:
 		rows.append('|'.join(row))
 	return '\n-----\n'.join(rows)
+
+
+def StringFromMatchbox(index):
+	"""
+	Takes the index, computes the board and the extracts the matchbox
+	and makes a pretty picture out of them
+	"""
+	board = BoardFromIndex(index)
+	matchbox = matchboxes[index]
+
+	output = []
+	for row in range(3):
+		squares = []
+		for col in range(3):
+			if board[row][col] == ' ':
+				squares.append('{:03.1f}'.format(matchbox[row*3 + col]))
+			else:
+				squares.append('{:^3}'.format(board[row][col]))
+		output.append('|'.join(squares))
+	return '\n-----------\n'.join(output)
+
 
 
 def GetNextMove(board, index, teams, mover):
@@ -149,7 +172,9 @@ def Play():
 		gameName = input('Would you like to play a game, Professor? ')
 		if gameName == 'TicTacToe':
 			numPlayers = int(input('How many human players, Professor? '))
-			ticTacToeGames.append(PlayTicTacToe(numPlayers))
+			game = PlayTicTacToe(numPlayers)
+			ticTacToeGames.append(game)
+
 		elif gameName == 'Save':
 			SaveListInFile(ticTacToeGames)
 		elif gameName == "No":

@@ -22,7 +22,7 @@ def DefaultMatchbox(index):
 	matchbox = []
 	for row in range(3):
 		for col in range(3):
-			matchbox.append(1.0 if board[row][col] == ' ' else 0.0)
+			matchbox.append(5 if board[row][col] == ' ' else 0)
 	return matchbox
 
 def PickSquareAtRandom(matchbox):
@@ -51,3 +51,10 @@ def GetComputerMove(board, index, mover):
 		matchboxes[index] = matchbox
 	return PickSquareAtRandom(matchbox)
 
+def LearnFromGame(game):
+	"""
+	Takes a list of strings for the game, and updates the matchboxes
+	for the moves that the winner or loser took. No change if the game
+	was a cat's game.
+	"""
+	return
