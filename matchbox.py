@@ -58,3 +58,57 @@ def LearnFromGame(game):
 	was a cat's game.
 	"""
 	return
+
+
+class ParsedMove:
+	"""
+	A single move of a game, with it's board index, the mover, and the chosen square
+	"""
+	def __init__(self, index, mover, square):
+		self.index = index
+		self.mover = mover
+		self.square = square
+		return
+
+	def __str__(self):
+		return f'Index: {self.index}, Team: {self.mover}, Square: {self.square}'
+
+class ParsedGame:
+	"""
+	A full game, with the winner, and the list of moves
+	"""
+	def __init__(self):
+		self.winner = ' '
+		self.moves = []
+		return
+
+	def __str__(self):
+		output = self.winner
+		for move in self.moves:
+			output += '\n' + str(move)
+		return output
+
+def ParseGame(gameList):
+	"""
+	Parses the game.
+	Assumes that the last line begins with 'C' or 'W'
+	Then a move is an 'I' line followed by a 'M' line
+	Board transformation lines are ignored
+	"""
+	game = ParsedGame()
+	for line in gameList:
+		tokens = line.split(' ')
+		if tokens[0] == 'I':
+			index = int(tokens[1])
+		elif tokens[0] == 'M':
+			mover, square = tokens[1:]
+			game.moves.append(ParsedMove(index, mover, square))
+		elif tokens[0] == 'C':
+			game.winner = 'C'
+			return game
+		elif tokens[0] == 'W':
+			game.winner = tokens[1]
+			return game
+	return game
+
+
