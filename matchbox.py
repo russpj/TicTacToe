@@ -51,6 +51,7 @@ def GetComputerMove(board, index, mover):
 		matchboxes[index] = matchbox
 	return PickSquareAtRandom(matchbox)
 
+
 def LearnFromGame(game):
 	"""
 	Takes a list of strings for the game, and updates the matchboxes

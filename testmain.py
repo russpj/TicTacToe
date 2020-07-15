@@ -25,6 +25,7 @@ from matchbox import DefaultMatchbox
 from matchbox import PickSquareAtRandom
 from matchbox import GetComputerMove
 from matchbox import ParseGame
+from matchbox import LearnFromGame
 
 from game import StringFromBoard
 from game import StringFromMatchbox
@@ -703,6 +704,64 @@ def TestParseGame(verbose):
 	return allTestsPassed
 
 
+def TestLearnFromGame(verbose):
+	tests = (
+		(
+		"I 0",
+		"M X 3",
+		"R 1",
+		"I 4374",
+		"M O 5",
+		"F 1",
+		"I 4617",
+		"M X 4",
+		"I 4779",
+		"M O 0",
+		"I 11340",
+		"M X 7",
+		"W X",
+		),
+	)
+
+	expecteds = (
+		(
+			(0, 3, 6),
+			(4374, 5, 4),
+			(4617, 4, 6),
+			(4779, 0, 4),
+			(11340, 7, 6),
+		),
+	)
+
+	def TestAssert(game, expected, verbose):
+		LearnFromGame(game)
+
+		passed = True
+		for expectedMatchbox in expected:
+			index, square, weight = expectedMatchbox
+			matchbox = matchboxes[index]
+			passed = passed and matchbox[square] == weight
+
+		if verbose or not passed:
+			print()
+			print("Testing LearnFromGame()")
+			print(f'Game: {game}')
+			print(f'Matchboxes: {matchboxes}')
+			print(f'Expected: {expected}')
+
+		if not passed:
+			print ('FAILED')
+			return False
+		else:
+			return True
+
+	allTestsPassed = True
+	for test, expected in zip(tests, expecteds):
+		allTestsPassed = TestAssert(test, expected, verbose) and allTestsPassed
+
+	return allTestsPassed
+
+
 tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestValidateMove, False),
 				 TestCondition(TestMove, False),
@@ -715,7 +774,8 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestDefaultMatchbox, False),
 				 TestCondition(TestPickSquareAtRandom, False),
 				 TestCondition(TestGetComputerMove, True),
-				 TestCondition(TestParseGame, False)
+				 TestCondition(TestParseGame, True),
+				 TestCondition(TestLearnFromGame, False)
 				 )
 
 def Test():
