@@ -23,8 +23,8 @@ def StringFromBoard(board):
 	"""
 	rows = []
 	for row in board:
-		rows.append('|'.join(row))
-	return '\n-----\n'.join(rows)
+		rows.append('|'.join([' '+square+' ' for square in row]))
+	return '\n-----------\n'.join(rows)
 
 
 def StringFromMatchbox(index):
@@ -40,7 +40,7 @@ def StringFromMatchbox(index):
 		squares = []
 		for col in range(3):
 			if board[row][col] == ' ':
-				squares.append('{:03.1f}'.format(matchbox[row*3 + col]))
+				squares.append('{:^3}'.format(matchbox[row*3 + col]))
 			else:
 				squares.append('{:^3}'.format(board[row][col]))
 		output.append('|'.join(squares))

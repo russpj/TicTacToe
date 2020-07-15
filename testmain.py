@@ -634,13 +634,13 @@ def TestGetComputerMove(verbose):
 			matchbox = matchboxes[index]
 			row = square // 3
 			col = square % 3
-			passed = board[row][col] == ' ' and matchbox[square] >= 1.0
+			passed = board[row][col] == ' ' and matchbox[square] >= 5
 			if verbose or not passed:
 				print()
 				print(StringFromBoard(board))
 				print('Row: {}, Col {}, Actual: |{}|, Probability: {}'.
 					format(row, col, board[row][col], matchbox[square]))
-				matchbox[square] += 0.1
+				matchbox[square] += 1
 				matchboxes[index] = matchbox
 				print(StringFromMatchbox(index))
 			passedAll = passedAll and passed
@@ -714,8 +714,8 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestBoardFromIndex, False),
 				 TestCondition(TestDefaultMatchbox, False),
 				 TestCondition(TestPickSquareAtRandom, False),
-				 TestCondition(TestGetComputerMove, False),
-				 TestCondition(TestParseGame, True)
+				 TestCondition(TestGetComputerMove, True),
+				 TestCondition(TestParseGame, False)
 				 )
 
 def Test():
