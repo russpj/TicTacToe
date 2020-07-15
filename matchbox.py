@@ -58,7 +58,30 @@ def LearnFromGame(game):
 	for the moves that the winner or loser took. No change if the game
 	was a cat's game.
 	"""
+	parsedGame = ParseGame(game)
+	if parsedGame.winner == 'C':
+		return
+	winner = parsedGame.winner
+	for move in parsedGame.moves:
+		if move.index in matchboxes:
+			matchbox = matchboxes[move.index]
+		else:
+			matchbox = DefaultMatchbox(move.index)
+		weightIncrement = 1 if move.mover == winner else -1
+		matchbox[move.square] += weightIncrement
+		matchboxes[move.index] = matchbox
+
 	return
+
+
+def ClearMatchboxes():
+	global matchboxes
+	matchboxes = {}
+	return
+
+
+def GetMatchboxes():
+	return matchboxes
 
 
 class ParsedMove:
@@ -103,7 +126,7 @@ def ParseGame(gameList):
 			index = int(tokens[1])
 		elif tokens[0] == 'M':
 			mover, square = tokens[1:]
-			game.moves.append(ParsedMove(index, mover, square))
+			game.moves.append(ParsedMove(index, mover, int(square)))
 		elif tokens[0] == 'C':
 			game.winner = 'C'
 			return game

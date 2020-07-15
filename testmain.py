@@ -20,12 +20,13 @@ from TicTacToe import CanonicalizeBoard
 from TicTacToe import BoardFromIndex
 from TicTacToe import MoveValidation
 
-from matchbox import matchboxes
 from matchbox import DefaultMatchbox
 from matchbox import PickSquareAtRandom
 from matchbox import GetComputerMove
 from matchbox import ParseGame
 from matchbox import LearnFromGame
+from matchbox import ClearMatchboxes
+from matchbox import GetMatchboxes
 
 from game import StringFromBoard
 from game import StringFromMatchbox
@@ -632,7 +633,7 @@ def TestGetComputerMove(verbose):
 		passedAll = True
 		for _ in range(repetitions):
 			square = GetComputerMove(board, index, mover)
-			matchbox = matchboxes[index]
+			matchbox = GetMatchboxes()[index]
 			row = square // 3
 			col = square % 3
 			passed = board[row][col] == ' ' and matchbox[square] >= 5
@@ -642,7 +643,7 @@ def TestGetComputerMove(verbose):
 				print('Row: {}, Col {}, Actual: |{}|, Probability: {}'.
 					format(row, col, board[row][col], matchbox[square]))
 				matchbox[square] += 1
-				matchboxes[index] = matchbox
+				GetMatchboxes()[index] = matchbox
 				print(StringFromMatchbox(index))
 			passedAll = passedAll and passed
 
@@ -653,6 +654,7 @@ def TestGetComputerMove(verbose):
 			return True
 
 	allTestsPassed = True
+	ClearMatchboxes()
 	for test in tests:
 		mover = 'X' if Count(test, 'X') == Count(test, 'O') else 'O'
 		allTestsPassed = TestAssert(test, IndexBoard(test), mover, 10, verbose) and allTestsPassed
@@ -739,14 +741,14 @@ def TestLearnFromGame(verbose):
 		passed = True
 		for expectedMatchbox in expected:
 			index, square, weight = expectedMatchbox
-			matchbox = matchboxes[index]
+			matchbox = GetMatchboxes()[index]
 			passed = passed and matchbox[square] == weight
 
 		if verbose or not passed:
 			print()
 			print("Testing LearnFromGame()")
 			print(f'Game: {game}')
-			print(f'Matchboxes: {matchboxes}')
+			print(f'Matchboxes: {GetMatchboxes()}')
 			print(f'Expected: {expected}')
 
 		if not passed:
@@ -756,6 +758,7 @@ def TestLearnFromGame(verbose):
 			return True
 
 	allTestsPassed = True
+	ClearMatchboxes()
 	for test, expected in zip(tests, expecteds):
 		allTestsPassed = TestAssert(test, expected, verbose) and allTestsPassed
 
@@ -773,9 +776,9 @@ tests = (TestCondition(TestIsWinner, False),
 				 TestCondition(TestBoardFromIndex, False),
 				 TestCondition(TestDefaultMatchbox, False),
 				 TestCondition(TestPickSquareAtRandom, False),
-				 TestCondition(TestGetComputerMove, True),
-				 TestCondition(TestParseGame, True),
-				 TestCondition(TestLearnFromGame, False)
+				 TestCondition(TestGetComputerMove, False),
+				 TestCondition(TestParseGame, False),
+				 TestCondition(TestLearnFromGame, True)
 				 )
 
 def Test():
