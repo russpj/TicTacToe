@@ -182,8 +182,8 @@ def LoadListFromFile():
 
 
 def PrintMatchboxes():
-	for matchbox in GetMatchboxes():
-		print(matchbox)
+	for index, matchbox in GetMatchboxes().items():
+		print(f'Index: {index}, {matchbox}')
 
 
 def Play():
