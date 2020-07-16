@@ -15,6 +15,7 @@ from TicTacToe import MoveValidation
 from matchbox import matchboxes
 from matchbox import GetComputerMove
 from matchbox import GetMatchboxes
+from matchbox import ClearMatchboxes
 from matchbox import LearnFromGames
 
 
@@ -173,6 +174,7 @@ def LoadListFromFile():
 		try:
 			with open(fileName, 'r') as file:
 				games = file.read().splitlines()
+				ClearMatchboxes()
 				LearnFromGames(games)
 				break
 		except OSError as error:
