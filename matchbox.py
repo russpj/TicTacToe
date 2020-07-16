@@ -60,17 +60,16 @@ def LearnFromGames(game):
 	"""
 	parsedGames = ParseGames(game)
 	for parsedGame in parsedGames:
-		if parsedGame.winner == 'C':
-			break
-		winner = parsedGame.winner
-		for move in parsedGame.moves:
-			if move.index in matchboxes:
-				matchbox = matchboxes[move.index]
-			else:
-				matchbox = DefaultMatchbox(move.index)
-			weightIncrement = 1 if move.mover == winner else -1
-			matchbox[move.square] += weightIncrement
-			matchboxes[move.index] = matchbox
+		if parsedGame.winner != 'C':
+			winner = parsedGame.winner
+			for move in parsedGame.moves:
+				if move.index in matchboxes:
+					matchbox = matchboxes[move.index]
+				else:
+					matchbox = DefaultMatchbox(move.index)
+				weightIncrement = 1 if move.mover == winner else -1
+				matchbox[move.square] += weightIncrement
+				matchboxes[move.index] = matchbox
 
 	return
 
