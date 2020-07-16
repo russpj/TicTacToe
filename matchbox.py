@@ -52,24 +52,25 @@ def GetComputerMove(board, index, mover):
 	return PickSquareAtRandom(matchbox)
 
 
-def LearnFromGame(game):
+def LearnFromGames(game):
 	"""
 	Takes a list of strings for the game, and updates the matchboxes
 	for the moves that the winner or loser took. No change if the game
 	was a cat's game.
 	"""
-	parsedGame = ParseGame(game)
-	if parsedGame.winner == 'C':
-		return
-	winner = parsedGame.winner
-	for move in parsedGame.moves:
-		if move.index in matchboxes:
-			matchbox = matchboxes[move.index]
-		else:
-			matchbox = DefaultMatchbox(move.index)
-		weightIncrement = 1 if move.mover == winner else -1
-		matchbox[move.square] += weightIncrement
-		matchboxes[move.index] = matchbox
+	parsedGames = ParseGames(game)
+	for parsedGame in parsedGames:
+		if parsedGame.winner == 'C':
+			break
+		winner = parsedGame.winner
+		for move in parsedGame.moves:
+			if move.index in matchboxes:
+				matchbox = matchboxes[move.index]
+			else:
+				matchbox = DefaultMatchbox(move.index)
+			weightIncrement = 1 if move.mover == winner else -1
+			matchbox[move.square] += weightIncrement
+			matchboxes[move.index] = matchbox
 
 	return
 
@@ -112,13 +113,14 @@ class ParsedGame:
 			output += '\n' + str(move)
 		return output
 
-def ParseGame(gameList):
+def ParseGames(gameList):
 	"""
 	Parses the game.
 	Assumes that the last line begins with 'C' or 'W'
 	Then a move is an 'I' line followed by a 'M' line
 	Board transformation lines are ignored
 	"""
+	games = []
 	game = ParsedGame()
 	for line in gameList:
 		tokens = line.split(' ')
@@ -129,10 +131,12 @@ def ParseGame(gameList):
 			game.moves.append(ParsedMove(index, mover, int(square)))
 		elif tokens[0] == 'C':
 			game.winner = 'C'
-			return game
+			games.append(game)
+			game = ParsedGame()
 		elif tokens[0] == 'W':
 			game.winner = tokens[1]
-			return game
-	return game
+			games.append(game)
+			game = ParsedGame()
+	return games
 
 
