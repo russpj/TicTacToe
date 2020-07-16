@@ -14,6 +14,8 @@ from TicTacToe import MoveValidation
 
 from matchbox import matchboxes
 from matchbox import GetComputerMove
+from matchbox import GetMatchboxes
+from matchbox import LearnFromGames
 
 
 def StringFromBoard(board):
@@ -160,6 +162,30 @@ def SaveListInFile(games):
 			print('{}, try again.'.format(error))
 	return
 
+
+def LoadListFromFile():
+	"""
+	Loads the file, the parses the games out of it to prime the 
+	matchboxes
+	"""
+	while True:
+		fileName = input('What file should we read from, Professor? ')
+		try:
+			with open(fileName, 'r') as file:
+				games = file.readlines()
+				LearnFromGames(games)
+				break
+		except OSError as error:
+			print('{}, try again.'.format(error))
+
+	return
+
+
+def PrintMatchboxes():
+	for matchbox in GetMatchboxes():
+		print(matchbox)
+
+
 def Play():
 	"""
 	Gets the user started on a game. Note that the only game currently
@@ -177,6 +203,10 @@ def Play():
 
 		elif gameName == 'Save':
 			SaveListInFile(ticTacToeGames)
+		elif gameName == 'Load':
+			LoadListFromFile()
+		elif gameName == 'Matchboxes':
+			PrintMatchboxes()
 		elif gameName == "No":
 			print ('Good-Bye, Professor')
 			break
