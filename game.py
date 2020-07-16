@@ -172,7 +172,7 @@ def LoadListFromFile():
 		fileName = input('What file should we read from, Professor? ')
 		try:
 			with open(fileName, 'r') as file:
-				games = file.readlines()
+				games = file.read().splitlines()
 				LearnFromGames(games)
 				break
 		except OSError as error:
