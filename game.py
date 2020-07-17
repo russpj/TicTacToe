@@ -137,6 +137,7 @@ def PlayTicTacToe(numPlayers):
 			nextMover = 'O'
 		else:
 			nextMover = 'X'
+	LearnFromGames(game)
 	return game
 
 def SaveListInFile(games):
@@ -197,7 +198,7 @@ def Play():
 	"""
 	ticTacToeGames = []
 	while True:
-		gameName = input('Would you like to play a game, Professor? ')
+		gameName = input('Shall we play a game? ')
 		if gameName == 'TicTacToe':
 			numPlayers = int(input('How many human players, Professor? '))
 			game = PlayTicTacToe(numPlayers)
