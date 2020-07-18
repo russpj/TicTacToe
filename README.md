@@ -19,4 +19,5 @@ TicTacToe | Play Tic Tac Toe
 Save | Save the current game(s) to the end of the file.	You will be prompted for the file name
 Load | Parses the games from the given file and learns from them. You will be prompted for the file name. This clears the previous matchboxes
 Matchboxes | This prints out the matchboxes that have been used so far in this session
+Learn | Runs a number of games of computer vs computer automatically. Prompts the user for that number.
 No | Exits the program
