@@ -210,6 +210,10 @@ def Play():
 			LoadListFromFile()
 		elif gameName == 'Matchboxes':
 			PrintMatchboxes()
+		elif gameName == 'Learn':
+			numGames = int(input('How many games, Professsor? '))
+			for _ in range(numGames):
+				ticTacToeGames.append(PlayTicTacToe(0))
 		elif gameName == "No":
 			print ('Good-Bye, Professor')
 			break
