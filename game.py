@@ -36,7 +36,7 @@ def StringFromMatchbox(index):
 	and makes a pretty picture out of them
 	"""
 	board = BoardFromIndex(index)
-	matchbox = matchboxes[index]
+	matchbox = GetMatchboxes()[index]
 
 	output = []
 	for row in range(3):
@@ -186,7 +186,7 @@ def LoadListFromFile():
 
 def PrintMatchboxes():
 	for index, matchbox in GetMatchboxes().items():
-		print(f'Index: {index}, {matchbox}')
+		print(f'{StringFromMatchbox(index)}\n')
 
 
 def Play():
