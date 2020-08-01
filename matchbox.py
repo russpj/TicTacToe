@@ -6,10 +6,12 @@ Implements a matchbox style machine learning bed for TicTacToe
 
 from itertools import accumulate
 from random import choices
+from random import seed
 from TicTacToe import BoardFromIndex
 
 
 matchboxes = {}
+seed()
 
 def DefaultMatchbox(index):
 	"""
@@ -67,10 +69,12 @@ def LearnFromGames(game):
 					matchbox = matchboxes[move.index]
 				else:
 					matchbox = DefaultMatchbox(move.index)
+				if sum(matchbox) == 1:
+					# There is only one bead left in the matchbox. Don't remove it!
+					break
 				weightIncrement = 1 if move.mover == winner else -1
 				matchbox[move.square] += weightIncrement
 				matchboxes[move.index] = matchbox
-
 	return
 
 
